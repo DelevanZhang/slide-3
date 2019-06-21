@@ -29,6 +29,20 @@
             gotoSlide(current + 1)
         }, 3000)
     })
+
+    //监听页面是否可见
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            // console.log(document.hidden);
+            // console.log( document.visibilityState );
+            window.clearInterval(timer)
+        } else {
+            timer = setInterval(function () {
+                gotoSlide(current + 1)
+            }, 3000)
+        }
+    })
+
     //方法
     //给当前显示图片添加active
     function makeActive($node) {
@@ -96,7 +110,7 @@
 
         }
         if (current === ($btnImages.length - 1) && index === 0) {
-            // console.log(1)
+            console.log(1)
             $imagesList.css({
                 transform: `translateX(${-($btnImages.length + 1) * 920}px)`
             }).one('transitionend', function () {
@@ -106,8 +120,9 @@
                 }).show()
             })
             makeActive($btnImages.eq(index))
+            
         } else if (current === 0 && index === ($btnImages.length - 1)) {
-            // console.log(2)
+            console.log(2)
             $imagesList.css({
                 transform: 'translateX(0px)'
             }).one('transitionend', function () {
@@ -119,7 +134,7 @@
             makeActive($btnImages.eq(index))
 
         } else {
-            // console.log(3)
+            console.log(3)
             $imagesList.css({
                 transform: `translateX(${-(index+1) * 920}px)`
             })
